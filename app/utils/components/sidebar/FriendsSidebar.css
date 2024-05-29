@@ -1,0 +1,67 @@
+.friends-sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    width: 250px;
+    background-color: #24ca48;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .friends-sidebar .online-friends-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .friends-sidebar .online-friend {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .friends-sidebar .online-friend:hover {
+    background-color: #e9ebee;
+  }
+  
+  .friends-sidebar .profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+      }.friends-sidebar {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px;
+    width: 250px;
+    background-color: #71a1e9;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .friends-sidebar .online-friends-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .friends-sidebar .online-friend {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .friends-sidebar .online-friend:hover {
+    background-color: #e9ebee;
+  }
+  

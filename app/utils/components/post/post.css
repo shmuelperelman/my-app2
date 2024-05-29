@@ -1,0 +1,85 @@
+
+  
+
+  .facebook-layout {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .facebook-content {
+    flex: 1;
+  }
+  
+  .facebook-post-input {
+    margin-bottom: 20px;
+  }
+  
+  .facebook-post-input input[type="text"] {
+    width: calc(100% - 90px);
+    padding: 10px;
+    border: 1px solid #6b6161;
+    border-radius: 5px;
+  }
+  
+  .facebook-post-input button {
+    width: 80px;
+    padding: 10px;
+    background-color: #4267b2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .facebook-post-input button:hover {
+    background-color: #365899;
+  }
+  
+  .facebook-posts {
+    display: grid;
+    gap: 20px;
+  }
+  
+  .facebook-post {
+    background-color: #7e7b7b;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .facebook-post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .facebook-post-author-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .facebook-post-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 15px;
+  }
+  
+  .facebook-post-likes,
+  .facebook-post-comments {
+    margin-bottom: 10px;
+  }
+  
+  .facebook-comment,
+  .facebook-post-likes span {
+    margin-right: 10px;
+  }
+  
+  .facebook-comment-author-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
