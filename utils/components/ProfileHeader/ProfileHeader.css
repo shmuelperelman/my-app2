@@ -1,0 +1,33 @@
+.profile-header {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic-container {
+  flex-shrink: 0;
+  margin-right: 20px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-username {
+  font-size: 1.5em;
+  margin: 0;
+}
+
+.profile-bio {
+  color: #666;
+  margin-top: 8px;
+}

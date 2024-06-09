@@ -1,0 +1,21 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.profile-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 3;
+}
+
+.profile-sidebar {
+  flex-grow: 1;
+  margin-left: 20px; /* רווח בין הקומפוננטות */
+}

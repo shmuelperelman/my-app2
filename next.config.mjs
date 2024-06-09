@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    reactStrictMode: true, // הפעלת React Strict Mode לאיתור בעיות
+    // reactStrictMode: true, // הפעלת React Strict Mode לאיתור בעיות
     images: {
       remotePatterns: [
         {
