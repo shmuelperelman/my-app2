@@ -5,7 +5,7 @@ import { getAllPostsExceptUser } from '../../functions/apiCalls';
 import { getCookie } from 'cookies-next';
 import { FaThumbsUp, FaComment } from 'react-icons/fa';
 
-const ProfilePosts = () => {
+const ProfilePosts1 = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState('');
@@ -123,4 +123,4 @@ const ProfilePosts = () => {
   );
 };
 
-export default ProfilePosts;
+export default ProfilePosts1;

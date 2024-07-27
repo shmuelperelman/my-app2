@@ -9,10 +9,11 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { storage } from '@/utils/services/firebase';
 
 export default function RegistrationModal() {
-  const { loading, setLoading } = "false";
+  const [loading, setLoading] = useState(false);
   const [passwordError, setPasswordError] = useState('');
   const passElement = useRef(null);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [coverPicture, setCoverPicture] = useState(null); // הוספת סטייט לתמונת cover
 
   async function handleSubmit(e) {
     try {
@@ -22,12 +23,18 @@ export default function RegistrationModal() {
       const data = Object.fromEntries(formData);
 
       if (profilePicture) {
-        const storageRef = ref(storage, `profile_pictures/${Date.now()}_${profilePicture.name}`);
-        await uploadBytes(storageRef, profilePicture);
-        const profilePictureURL = await getDownloadURL(storageRef);
+        const profileStorageRef = ref(storage, `profile_pictures/${Date.now()}_${profilePicture.name}`);
+        await uploadBytes(profileStorageRef, profilePicture);
+        const profilePictureURL = await getDownloadURL(profileStorageRef);
         data.profilePictureURL = profilePictureURL;
       }
 
+      if (coverPicture) {
+        const coverStorageRef = ref(storage, `cover_pictures/${Date.now()}_${coverPicture.name}`);
+        await uploadBytes(coverStorageRef, coverPicture);
+        const coverPictureURL = await getDownloadURL(coverStorageRef);
+        data.coverPictureURL = coverPictureURL;
+      }
 
       const res = await register(data);
     } catch (error) {
@@ -39,7 +46,6 @@ export default function RegistrationModal() {
 
   return (
     <div className="column navbar-modal">
-
       <form className="column form" onSubmit={handleSubmit}>
         <h1>Registration form</h1>
         <TextField name="username" label="Username" className="MuiTextField-root" />
@@ -67,6 +73,7 @@ export default function RegistrationModal() {
         <TextField name="name" label="Name" className="MuiTextField-root" />
         <TextField name="email" label="Email" type="email" className="MuiTextField-root" />
         <TextField name="birthdate" label="Birthdate" type="date" InputLabelProps={{ shrink: true }} className="MuiTextField-root" />
+
         <div className="file-input-container">
           <input
             type="file"
@@ -83,7 +90,24 @@ export default function RegistrationModal() {
             <span>Upload Profile Picture</span>
           </label>
         </div>
-       
+
+        <div className="file-input-container">
+          <input
+            type="file"
+            name="coverPicture"
+            accept="image/*"
+            id="coverPicture"
+            style={{ display: 'none' }}
+            onChange={(e) => setCoverPicture(e.target.files[0])}
+          />
+          <label htmlFor="coverPicture">
+            <IconButton color="primary" aria-label="upload picture" component="span">
+              <PhotoCamera />
+            </IconButton>
+            <span>Upload Cover Picture</span>
+          </label>
+        </div>
+
         {loading ? (
           <CircularProgress className="MuiCircularProgress-root" />
         ) : (

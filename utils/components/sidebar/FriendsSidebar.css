@@ -1,67 +1,56 @@
-.friends-sidebar {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-    width: 250px;
-    background-color: #24ca48;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .friends-sidebar .online-friends-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .friends-sidebar .online-friend {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .friends-sidebar .online-friend:hover {
-    background-color: #e9ebee;
-  }
-  
-  .friends-sidebar .profile-picture {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 12px;
-      }.friends-sidebar {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    right: 20px;
-    width: 250px;
-    background-color: #71a1e9;
-    border-radius: 8px;
-    padding: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .friends-sidebar .online-friends-list {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .friends-sidebar .online-friend {
-    display: flex;
-    align-items: center;
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .friends-sidebar .online-friend:hover {
-    background-color: #e9ebee;
-  }
-  
+.profile-layout {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.sidebar-container {
+  width: 300px;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  background-color: #f7f7f7; /* הוספת צבע רקע */
+}
+
+.section {
+  padding: 10px;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.friend-btn {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd; /* הוספת קו תחתון */
+}
+
+.friend-btn.active {
+  background-color: #e0e0e0;
+}
+
+.friend-pic {
+  border-radius: 50%;
+  margin-right: 10px;
+  width: 40px; /* קביעת רוחב התמונה */
+  height: 40px; /* קביעת גובה התמונה */
+  object-fit: cover; /* חיתוך התמונה כדי שתתאים לגודל */
+}
+
+.friend-pic,
+.friend-btn span {
+  vertical-align: middle;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

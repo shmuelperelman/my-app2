@@ -154,20 +154,18 @@ const ChatBox = ({ recipientId }) => {
               alt={message.sender}
               className="message-pic"
             />
-            <div className="message-bubble">
-              {message.type === 'text' ? (
-                <span className="message-content">{message.content}</span>
-              ) : (
-                <img
-                  src={message.content}
-                  alt="Uploaded"
-                  className="message-image"
-                />
-              )}
-              <span className="timestamp">
-                {new Date(message.timestamp).toLocaleString()}
-              </span>
-            </div>
+            {message.type === 'text' ? (
+              <span className="message-content">{message.content}</span>
+            ) : (
+              <img
+                src={message.content}
+                alt="Uploaded"
+                className="message-image"
+              />
+            )}
+            <span className="timestamp">
+              {new Date(message.timestamp).toLocaleString()}
+            </span>
           </div>
         ))}
         <div ref={messagesEndRef} />

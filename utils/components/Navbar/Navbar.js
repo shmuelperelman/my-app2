@@ -5,7 +5,7 @@ import { faHome, faEnvelope, faUserCircle, faSearch } from '@fortawesome/free-so
 import './styles.css'; 
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { getCookie, getCookies } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 
 const Navbar = () => {
   const [activeButton, setActiveButton] = useState(null);

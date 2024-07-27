@@ -1,21 +1,22 @@
 .chat-box {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
   width: 100%;
-  max-width: 500px;
-  height: 600px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
+  max-width: 100%; /* Ensure it takes full width */
+  margin: 0; /* Remove margin */
+  border: 1px solid #ccc;
+  border-radius: 0; /* Remove border-radius for full width */
   overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px;
   background-color: #f5f5f5;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ccc;
 }
 
 .recipient-pic {
@@ -26,21 +27,19 @@
 }
 
 .recipient-name {
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: bold;
 }
 
 .messages {
   flex: 1;
-  padding: 15px;
+  padding: 10px;
   overflow-y: auto;
-  background-color: #fff;
 }
 
 .message {
   display: flex;
-  align-items: center;
-  margin-bottom: 15px;
+  align-items: flex-end;
+  margin-bottom: 10px;
 }
 
 .user-message {
@@ -58,48 +57,44 @@
   margin-right: 10px;
 }
 
-.message-content,
-.message-image {
-  max-width: 60%;
+.message-bubble {
+  max-width: 70%;
   padding: 10px;
-  border-radius: 8px;
-  font-size: 14px;
-  background-color: #f1f1f1;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  position: relative;
 }
 
-.user-message .message-content,
-.user-message .message-image {
-  background-color: #dcf8c6;
+.message-content {
+  white-space: pre-wrap;
 }
 
 .message-image {
   max-width: 100%;
-  height: auto;
+  border-radius: 10px;
 }
 
 .timestamp {
   display: block;
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #999;
   margin-top: 5px;
+  text-align: right;
 }
 
 .message-input {
   display: flex;
   align-items: center;
-  padding: 10px 15px;
+  padding: 10px;
+  border-top: 1px solid #ccc;
   background-color: #f5f5f5;
-  border-top: 1px solid #ddd;
 }
 
 .message-input input[type="text"] {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 20px;
-  font-size: 14px;
-  outline: none;
   margin-right: 10px;
 }
 
@@ -108,15 +103,10 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 18px;
-  color: #333;
+  padding: 10px;
 }
 
 .image-upload-button:hover,
 .send-button:hover {
   color: #007bff;
-}
-
-#image-upload {
-  display: none;
 }

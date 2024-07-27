@@ -1,33 +1,127 @@
-.profile-header {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-  background-color: #f8f9fa;
+.profileHeader {
+  background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.profile-pic-container {
-  flex-shrink: 0;
-  margin-right: 20px;
+.coverPhoto {
+  height: 300px;
+  position: relative;
 }
 
-.profile-pic {
+.profileInfo {
+  padding: 20px;
+  position: relative;
+}
+
+.profilePicture {
+  position: absolute;
+  top: -75px;
+  left: 20px;
+}
+
+.profilePicture img {
+  border: 4px solid #fff;
   border-radius: 50%;
-  object-fit: cover;
 }
 
-.profile-info {
+.changePhotoButton {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.changePhotoButton:hover {
+  background-color: #166fe5;
+}
+
+.userDetails {
+  margin-left: 180px;
+}
+
+.userDetails h1 {
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+
+.userDetails p {
+  color: #65676b;
+  margin: 0 0 15px;
+}
+
+.additionalInfo {
   display: flex;
-  flex-direction: column;
+  gap: 15px;
+  font-size: 14px;
+  color: #65676b;
 }
 
-.profile-username {
-  font-size: 1.5em;
-  margin: 0;
+.additionalInfo a {
+  color: #1877f2;
+  text-decoration: none;
 }
 
-.profile-bio {
-  color: #666;
-  margin-top: 8px;
+.additionalInfo a:hover {
+  text-decoration: underline;
+}
+
+.stats {
+  margin-top: 15px;
+}
+
+.stats span {
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.editButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #1877f2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editButton:hover {
+  background-color: #166fe5;
+}
+
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.error {
+  background-color: #ffebee;
+  border: 1px solid #ef5350;
+  color: #b71c1c;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 20px 0;
 }

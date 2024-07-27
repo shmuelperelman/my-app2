@@ -1,0 +1,57 @@
+.grid-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 30px auto;
+    width: 70%;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    padding: 25px;
+    border: 1px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 300ms;
+    position: relative;
+  }
+  
+  .remove {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+  }
+  
+  .grid-item:hover {
+    scale: 1.1;
+  }
+  
+  .grid-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  .grid-item h2 {
+    font-size: 40px;
+  }
+  
+  .grid-item p {
+    font-size: 30px;
+  }
+  
+  .tools-bar {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+  

@@ -4,21 +4,23 @@ import './ProfileSidebar.css';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { getUserFriends } from '@/utils/functions/apiCalls';
+import { getCookie } from 'cookies-next';
 
-const ProfileSidebar = ({ userId }) => {
+const ProfileSidebar = () => {
   const [friends, setFriends] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     const fetchFriends = async () => {
       try {
-        const token = getCookie('token'); 
-        if (!token) {
-          console.error('No token found');
+        const token = getCookie('token');
+        const userId = getCookie('user_id'); // קבלת userId מהעוגיות
+        if (!token || !userId) {
+          console.error('Token or userId not found');
           return;
         }
         const friendsData = await getUserFriends(userId, token);
-        console.log('Fetched friends:', friendsData); 
+        console.log('Fetched friends:', friendsData);
         setFriends(friendsData);
       } catch (error) {
         console.error('Error fetching friends:', error);
@@ -26,10 +28,8 @@ const ProfileSidebar = ({ userId }) => {
       }
     };
 
-    if (userId) {
-      fetchFriends();
-    }
-  }, [userId]);
+    fetchFriends();
+  }, []);
 
   const handleFriendClick = (friend) => {
     router.push(`/profile/${friend._id}`);
@@ -47,7 +47,7 @@ const ProfileSidebar = ({ userId }) => {
                 onClick={() => handleFriendClick(friend)}
               >
                 <Image
-                  src={friend.profilePictureURL || 'https://example.com/default_profile_picture.png'}
+                  src={friend.profilePictureURL }
                   alt={friend.username}
                   width={50}
                   height={50}
