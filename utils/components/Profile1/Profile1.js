@@ -13,10 +13,12 @@ const Profile = ({ userId }) => {
         <div className="profile-main-content">
           <ProfilePosts userId={userId} />
         </div>
-        <ProfileSidebar userId={userId} className="profile-sidebar" />
+        <ProfileSidebar  className="profile-sidebar" />
       </div>
     </div>
   );
 };
 
 export default Profile;
+
+

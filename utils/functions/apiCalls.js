@@ -1,126 +1,472 @@
 import axios from 'axios';
 
-const SERVER_URL = 'http://localhost:3001';
-// const SERVER_URL = "https://express-1-p0in.onrender.com";
+const SERVER_URL = 'http://localhost:3004';
 
-async function fetchData(url, token, method = 'GET', body = null) {
+
+export async function login(body) {
   try {
-    const config = {
-      method,
-      url: `${SERVER_URL}${url}`,
+    const response = await axios.post(`${SERVER_URL}/users/login`, body);
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+export async function register(body) {
+  try {
+    console.log(body);
+    const response = await axios.post(`${SERVER_URL}/users/register`, body);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
+}
+
+export async function getAllUserPosts( userId,token) {
+  try {
+    console.log('Sending request with userId:', userId); // לוג לבדיקה
+
+    const response = await axios.get(`${SERVER_URL}/posts/all/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
       },
-      data: body,
-    };
+    });
 
-    const response = await axios(config);
-    return response;
+    console.log('Fetched posts:', response.data); // לוג לבדיקה
+    return response.data;
   } catch (error) {
-    console.error(`Error in fetchData for ${url}:`, error.response?.data || error.message);
-    throw new Error(error.response?.data?.message || error.message);
+    console.error('Error in getAllUserPosts:', error);
+    throw error;
+  }
+}
+
+export async function createNewPost(body, token) {
+  try {
+    const userId = body.user_id;
+    const response = await axios.post(`${SERVER_URL}/posts/${userId}`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
   }
 }
 
 // פוסטים
 export async function getAllSPPosts(token) {
-  return await fetchData('/posts', token);
+  try {
+    const response = await fetch(`${SERVER_URL}/posts`, {
+      cache: 'no-cache',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
-export async function getAllUserPosts(userId, token) {
-  return await fetchData(`/posts/user/${userId}`, token);
+export async function deletePost(_id, token) {
+  try {
+    const response = await axios.delete(`${SERVER_URL}/posts/${_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(error);
+  }
 }
 
-export async function createNewPost(body, token) {
-  return await fetchData(`/posts/${body.user_id}`, token, 'POST', body);
+export async function updatePost(_id, updateData, token) {
+  try {
+    const response = await axios.put(`${SERVER_URL}/posts/${_id}`, updateData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating post:', error);
+    throw error;
+  }
 }
 
-export async function deletePost(postId, token) {
-  return await fetchData(`/posts/${postId}`, token, 'DELETE');
+
+export async function getPostById(_id, token) {
+  try {
+    const response = await fetch(`${SERVER_URL}/posts/${_id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
-export async function getPostById(postId, token) {
-  return await fetchData(`/posts/${postId}`, token);
+export async function getUserById(userId, token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/users/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log('Fetched user data:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
 }
 
-// משתמשים
+export async function updateUserProfile(userId, token, data) {
+  try {
+    const response = await axios.put(`${SERVER_URL}/users/${userId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // 'Content-Type': 'multipart/form-data'
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    throw error;
+  }
+}
+
 export async function getAllUsers(token, userId) {
-  return await fetchData(`/users/${userId}/all-except`, token);
+  try {
+    console.log('Fetching users with userId:', userId);
+    const response = await fetch(`${SERVER_URL}/users/${userId}/all-except`, { // עדכון URL
+      cache: 'no-cache',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch users');
+    }
+    
+    const data = await response.json();
+    console.log('API response data:', data);
+    return data.data;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return [];
+  }
 }
 
-export async function getUserFriends(userId, token) {
-  return await fetchData(`/users/${userId}/friends`, token);
+
+export async function getAllPostsExceptUser(userId, token) {
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/posts/allPostsExceptUser/${userId}`,
+      {
+        cache: 'no-cache',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      console.error('Error response:', response); 
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json(); 
+    console.log('API response data:', data); 
+    return data;
+  } catch (error) {
+    console.error('Error fetching posts:', error); 
+    throw error;
+  }
 }
 
-export async function getUserById(userId, token) {  
-  return await fetchData(`/users/${userId}`, token);
+export async function getUserFriends( userId,token) {
+  try {
+    const response = await fetch(`${SERVER_URL}/users/${userId}/friends`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+   
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
 export async function addGroupToUser(userId, groupId, token) {
-  return await fetchData(`/users/${userId}/groups`, token, 'PUT', { groupId });
+  try {
+    const response = await axios.put(
+      `${SERVER_URL}/users/${userId}/groups`,
+      { groupId },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 export async function removeGroupFromUser(userId, groupId, token) {
-  return await fetchData(`/users/${userId}/groups/${groupId}`, token, 'DELETE');
+  try {
+    const response = await axios.delete(
+      `${SERVER_URL}/users/${userId}/groups/${groupId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error);
+  }
 }
 
 export async function getUsersInGroup(groupId, token) {
-  return await fetchData(`/users/groups/${groupId}/users`, token);
+  try {
+    const response = await fetch(
+      `${SERVER_URL}/users/groups/${groupId}/users`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 }
 
-// מוצרים
-export async function createNewProduct(body, token) {
-  return await fetchData(`/products`, token, 'POST', body);
-}
 
 export async function sendMessageToServer(message) {
-  return await fetchData(`/messages`, null, 'POST', message);
+  try {
+    const response = await axios.post(`${SERVER_URL}/messages`, message);
+    return response.data;
+  } catch (error) {
+    console.error('Error sending message:', error);
+    throw new Error(error);
+  }
 }
 
 // קבוצה
 export async function getGroupsUserIsMemberOf(userId, token) {
-  return await fetchData(`/groups/user/${userId}`, token);
+  try {
+    const response = await axios.get(`${SERVER_URL}/groups/user/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching member groups:', error);
+    throw error;
+  }
 }
 
 export async function createGroup(groupData, token) {
-  return await fetchData(`/groups`, token, 'POST', groupData);
+  try {
+    const response = await axios.post(`${SERVER_URL}/groups`, groupData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating group:', error);
+    throw error;
+  }
 }
 
-// אימות משתמש
-export async function login(body) {
-  return await fetchData(`/users/login`, null, 'POST', body);
-}
 
-export async function register(body) {
-  return await fetchData(`/users/register`, null, 'POST', body);
-}
 
-// פוסטים למשתמש חוץ מהמשתמש הספציפי
-export async function getAllPostsExceptUser(userId, token) {
-  return await fetchData(`/posts/allPostsExceptUser/${userId}`, token);
-}
 
 export async function likePost(postId, token) {
-  return await fetchData(`/posts/like/${postId}`, token, 'POST');
+  try {
+    const response = await fetch(`${SERVER_URL}/posts/like/${postId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      console.error('Error response:', response);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error liking post:', error);
+    throw error;
+  }
 }
 
 export async function addComment(postId, comment, token) {
-  return await fetchData(`/posts/comment/${postId}`, token, 'POST', { comment });
+  try {
+    const response = await fetch(`${SERVER_URL}/posts/comment/${postId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ comment }),
+    });
+
+    if (!response.ok) {
+      console.error('Error response:', response);
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    throw error;
+  }
 }
 
-// צ'אטים
+// יצירת צ'אט חדש או קבלת צ'אט קיים
 export async function createChat(participants) {
   const token = getCookie('token');
-  return await fetchData(`/chats`, token, 'POST', { participants });
+  try {
+    const response = await axios.post(
+      `${SERVER_URL}/chats`,
+      { participants },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Error creating chat:', error);
+    throw error;
+  }
 }
 
+// שליפת כל הצ'אטים של משתמש
 export async function getUserChats(userId) {
   const token = getCookie('token');
-  return await fetchData(`/chats/${userId}`, token);
+  try {
+    const response = await axios.get(`${SERVER_URL}/chats/${userId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user chats:', error);
+    throw error;
+  }
 }
 
+// שליפת הודעות של צ'אט מסוים
 export async function getChatMessages(chatId) {
   const token = getCookie('token');
-  return await fetchData(`/messages/${chatId}`, token);
+  try {
+    const response = await axios.get(`${SERVER_URL}/messages/${chatId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching chat messages:', error);
+    throw error;
+  }
+}
+
+
+
+// קריאה להוספת מוצר חדש
+export async function createNewProduct(body, token) {
+  try {
+    const response = await axios.post(`${SERVER_URL}/market/products`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating product:', error);
+    throw new Error(error);
+  }
+}
+
+// קריאה לשליפת כל המוצרים
+export async function getAllProducts(token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/market/products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw new Error(error);
+  }
+}
+
+// קריאה לשליפת מוצר לפי IDimport axios from 'axios';
+export const getProductById = async (id, token) => {
+  try {
+    console.log(`Fetching product with ID: ${id}`);
+    console.log(`Using token: ${token}`);
+
+    const response = await axios.get(`${SERVER_URL }/market/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Detailed error in getProductById:', error);
+    console.error('Response error data:', error.response?.data);
+    console.error('Response error status:', error.response?.status);
+    console.error('Response error headers:', error.response?.headers);
+    throw error;
+  }
+};
+
+
+// קריאה למחיקת מוצר
+export async function deleteProduct(productId, token) {
+  try {
+    const response = await axios.delete(`${SERVER_URL}/market/products/${productId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    throw new Error(error);
+  }
 }
