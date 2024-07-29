@@ -1,9 +1,8 @@
 'use client';
-import SubmitBtn from '@/utils/components/submitBth/submitBtn';
 import { login } from '@/utils/functions/apiCalls';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-
+import "./Login.css"
 export default function LoginPage() {
   const router = useRouter();
 
@@ -19,11 +18,13 @@ export default function LoginPage() {
   }
 
   return (
-    <form className="column form" onSubmit={handleSubmit}>
-      <h1>Login form</h1>
-      <input name="username" label="username" />
-      <input name="password" label="password" type="password" />
-      <SubmitBtn text="Login" />
-    </form>
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h1>Login</h1>
+        <input name="username" type="text" placeholder="Username" required />
+        <input name="password" type="password" placeholder="Password" required />
+        <button type="submit" className="submit-btn">Login</button>
+      </form>
+    </div>
   );
 }

@@ -64,7 +64,7 @@ function GridItem({ item, setSelectedProduct }) {
     <Link href={`/products/${item._id}`} className="grid-item">
       <Image
         fill
-        src={item.imageUrl} // עדכון השדה לשם הנכון
+        src={item.imageUrl} 
         style={{ objectFit: "contain" }}
         loading="lazy"
         alt={item.name}

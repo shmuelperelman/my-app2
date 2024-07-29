@@ -4,10 +4,10 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  max-width: 100%; /* Ensure it takes full width */
-  margin: 0; /* Remove margin */
+  max-width: 100%; 
+  margin: 0; 
   border: 1px solid #ccc;
-  border-radius: 0; /* Remove border-radius for full width */
+  border-radius: 0; 
   overflow: hidden;
 }
 

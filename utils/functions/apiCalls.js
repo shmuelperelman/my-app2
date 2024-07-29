@@ -418,7 +418,7 @@ export async function createNewProduct(body, token) {
   }
 }
 
-// קריאה לשליפת כל המוצרים
+
 export async function getAllProducts(token) {
   try {
     const response = await axios.get(`${SERVER_URL}/market/products`, {
@@ -429,11 +429,11 @@ export async function getAllProducts(token) {
     return response.data;
   } catch (error) {
     console.error('Error fetching products:', error);
-    throw new Error(error);
+    throw error;
   }
 }
 
-// קריאה לשליפת מוצר לפי IDimport axios from 'axios';
+
 export const getProductById = async (id, token) => {
   try {
     console.log(`Fetching product with ID: ${id}`);
