@@ -1,6 +1,8 @@
 'use client';
 import React, { useState } from 'react';
 import './GroupPopup.css';
+import { createGroup } from '@/utils/functions/apiCalls';
+import { getCookie } from 'cookies-next';
 
 const GroupPopup = ({ onCreate, onClose }) => {
   const [groupName, setGroupName] = useState('');
@@ -16,8 +18,20 @@ const GroupPopup = ({ onCreate, onClose }) => {
     setMembers(newMembers);
   };
 
-  const handleCreate = () => {
-    onCreate(groupName, members);
+  const handleCreate = async () => {
+    const token = getCookie('token');
+    const admin_id = getCookie('user_id');
+    try {
+      const groupData = {
+        name: groupName,
+        admin_id: admin_id,
+        members: members.filter(member => member !== ''),
+      };
+      await createGroup(groupData, token);
+      onCreate(groupName, members);
+    } catch (error) {
+      console.error('Error creating group:', error);
+    }
   };
 
   return (
@@ -34,7 +48,7 @@ const GroupPopup = ({ onCreate, onClose }) => {
           <input
             key={index}
             type="text"
-            placeholder="Member Email"
+            placeholder="Member"
             value={member}
             onChange={(e) => handleMemberChange(index, e.target.value)}
           />

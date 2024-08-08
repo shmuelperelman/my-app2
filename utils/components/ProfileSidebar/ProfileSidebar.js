@@ -14,7 +14,7 @@ const ProfileSidebar = () => {
     const fetchFriends = async () => {
       try {
         const token = getCookie('token');
-        const userId = getCookie('user_id'); // קבלת userId מהעוגיות
+        const userId = getCookie('user_id'); 
         if (!token || !userId) {
           console.error('Token or userId not found');
           return;

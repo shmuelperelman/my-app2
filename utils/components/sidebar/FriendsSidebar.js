@@ -42,8 +42,8 @@ const FriendsSidebar = ({ onSelectFriend }) => {
               <Image
                 src={friend.profilePictureURL || 'https://example.com/default_profile_picture.png'}
                 alt={friend.username}
-                width={60}
-                height={60}
+                width={40}
+                height={40}
                 className="friend-pic"
               />
               <span>{friend.username}</span>

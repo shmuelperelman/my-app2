@@ -2,10 +2,10 @@
 import React from 'react';
 import './GroupMenu.css';
 
-const GroupMenu = ({ groups }) => {
+const GroupMenu = ({ groups, onOpenPopup }) => {
   return (
     <div className="group-menu">
-      <h2>Group Menu</h2>
+      <h2>Groups</h2>
       <ul>
         {groups.map(group => (
           <li key={group._id} className="group-menu-item">
@@ -13,6 +13,9 @@ const GroupMenu = ({ groups }) => {
           </li>
         ))}
       </ul>
+      <button className="fab" onClick={onOpenPopup}>
+        Create Group
+      </button>
     </div>
   );
 };

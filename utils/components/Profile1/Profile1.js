@@ -5,6 +5,7 @@ import ProfileSidebar from '../ProfileSidebar/ProfileSidebar';
 import './Profile1.css';
 
 
+
 const Profile = ({ userId }) => {
   return (
     <div className="profile-container">
@@ -13,7 +14,7 @@ const Profile = ({ userId }) => {
         <div className="profile-main-content">
           <ProfilePosts userId={userId} />
         </div>
-        <ProfileSidebar  className="profile-sidebar" />
+        <ProfileSidebar className="profile-sidebar" />
       </div>
     </div>
   );

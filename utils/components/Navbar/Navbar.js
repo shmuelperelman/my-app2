@@ -1,11 +1,13 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faEnvelope, faUserCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
-import './styles.css'; 
+import { faHome, faEnvelope, faUserCircle,  faUsers, faStore } from '@fortawesome/free-solid-svg-icons';
+import './styles.css';
+
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getCookie } from 'cookies-next';
+import SearchBar from '../SearchBar/SearchBar';
 
 const Navbar = () => {
   const [activeButton, setActiveButton] = useState(null);
@@ -30,7 +32,7 @@ const Navbar = () => {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -40,35 +42,58 @@ const Navbar = () => {
     router.push('/logout');
   };
 
+  const handleSelectUser = (userId) => {
+    router.push(`/profile/${userId}`);
+  };
+
   const profilePictureURL = getCookie('profilePictureURL');
-
-
-
+  
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <div className="navbar-logo">ברוך הגבר</div>
         <div className="navbar-search">
-          <input type="text" placeholder="Search…" className="navbar-search-input" />
-          <button className="navbar-search-button">
-            <FontAwesomeIcon icon={faSearch} />
-          </button>
+        <SearchBar onSelectUser={handleSelectUser} />
         </div>
-        <div className="navbar-icons">
-          <button 
-            className={`navbar-icon-button ${activeButton === 'home' ? 'active' : ''}`} 
-            onClick={() => handleButtonClick('home')}
-          >
-            <FontAwesomeIcon icon={faHome} />
-          </button>
-          <button 
-            className={`navbar-icon-button ${activeButton === 'envelope' ? 'active' : ''}`} 
-            onClick={() => handleButtonClick('envelope')}
-          >
-            <FontAwesomeIcon icon={faEnvelope} />
-          </button>
-          <button 
-            className={`navbar-icon-button ${activeButton === 'user' ? 'active' : ''}`} 
+        <div className="navbar-center">
+          <div className="navbar-icons">
+            <Link href="/app" passHref>
+              <button
+                className={`navbar-icon-button ${activeButton === 'home' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('home')}
+              >
+                <FontAwesomeIcon icon={faHome} />
+              </button>
+            </Link>
+            <Link href="/groups" passHref>
+              <button
+                className={`navbar-icon-button ${activeButton === 'groups' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('groups')}
+              >
+                <FontAwesomeIcon icon={faUsers} />
+              </button>
+            </Link>
+            <Link href="/market" passHref>
+              <button
+                className={`navbar-icon-button ${activeButton === 'marketplace' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('marketplace')}
+              >
+                <FontAwesomeIcon icon={faStore} />
+              </button>
+            </Link>
+            <Link href="/envelope" passHref>
+              <button
+                className={`navbar-icon-button ${activeButton === 'envelope' ? 'active' : ''}`}
+                onClick={() => handleButtonClick('envelope')}
+              >
+                <FontAwesomeIcon icon={faEnvelope} />
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="navbar-profile">
+          <button
+            className={`navbar-icon-button ${activeButton === 'user' ? 'active' : ''}`}
             onClick={() => handleButtonClick('user')}
           >
             <div className="profile-picture-container">

@@ -8,7 +8,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     const userIdFromCookie = getCookie('user_id');
-    console.log('User ID from cookie:', userIdFromCookie); // הוספת בדיקה כדי לראות את ערך ה-`user_id` שנלקח מהקוקיות
+    console.log('User ID from cookie:', userIdFromCookie); 
     setUserId(userIdFromCookie);
   }, []);
 

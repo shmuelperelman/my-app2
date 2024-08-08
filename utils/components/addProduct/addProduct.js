@@ -1,24 +1,24 @@
 "use client"
 import { useState } from 'react';
-import { TextField } from '@mui/material'; // רכיב קלט מטופס של Material-UI
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage'; // פונקציות לניהול העלאת תמונות ב-Firebase
-import { storage } from '@/utils/services/firebase'; // אובייקט האחסון של Firebase
-import { getCookie } from 'cookies-next'; // פונקציה לניהול קבצי Cookie
+import { TextField } from '@mui/material';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { storage } from '@/utils/services/firebase';
+import { getCookie } from 'cookies-next';
 import { createNewProduct } from '../../functions/apiCalls';
 import SubmitBtn from '../submitBth/submitBtn';
+import './AddProduct.css';
 
 const createProduct = async (formData) => {
   try {
-    const files = formData.getAll('images'); // קבלת כל הקבצים מהשדה "images"
-
+    const files = formData.getAll('images');
     const images = await Promise.all(
       files.map(async (file) => {
         const imgRef = ref(
           storage,
-          `images/${formData.get('name')}/${file.name}` // יצירת נתיב ייחודי לכל תמונה לפי שם המוצר ושם הקובץ
+          `images/${formData.get('name')}/${file.name}`
         );
-        await uploadBytes(imgRef, file); // העלאת הקובץ ל-Firebase
-        return getDownloadURL(imgRef); // החזרת כתובת ה-URL של התמונה
+        await uploadBytes(imgRef, file);
+        return getDownloadURL(imgRef);
       })
     );
 
@@ -27,18 +27,18 @@ const createProduct = async (formData) => {
       price: formData.get('price'),
       city: formData.get('city'),
       description: formData.get('description'),
-      imageUrl: images[0], // הוספת כתובת התמונה הראשית (הראשונה ברשימה)
-      images: images, // הוספת כתובות כל התמונות
+      imageUrl: images[0],
+      images: images,
     };
 
-    const userId = getCookie('user_id'); // קבלת ה-user_id מהעוגיה
-    body.userId = userId; // הוספת ה-user_id לגוף הבקשה
+    const userId = getCookie('user_id');
+    body.userId = userId;
 
-    const token = getCookie('token'); // קבלת ה-token מהעוגיה
+    const token = getCookie('token');
 
-    await createNewProduct(body, token); // שליחת הנתונים לשרת ליצירת מוצר חדש
+    await createNewProduct(body, token);
   } catch (error) {
-    console.error('Error:', error); // טיפול בשגיאות
+    console.error('Error:', error);
   }
 };
 
@@ -50,26 +50,28 @@ export default function AddProduct() {
   };
 
   return (
-    <div className="column form-container">
-      <h1>Add new product</h1>
-      <form className="column form" onSubmit={handleSubmit}>
-        <TextField label="name" name="name" />
-        <TextField label="price" name="price" />
-        <TextField label="city" name="city" />
+    <div className="form-container">
+      <h1 className="form-title">Add New Product</h1>
+      <form className="form" onSubmit={handleSubmit}>
+        <TextField label="Name" name="name" className="form-input" variant="outlined" />
+        <TextField label="Price" name="price" className="form-input" variant="outlined" />
+        <TextField label="City" name="city" className="form-input" variant="outlined" />
         <TextField
           name="images"
           type="file"
           inputProps={{
-            multiple: true, // מאפשר העלאת קבצים מרובים
+            multiple: true,
           }}
+          className="form-input"
         />
         <textarea
           placeholder="Description..."
           rows={3}
           maxLength={1000}
           name="description"
+          className="form-textarea"
         />
-        <SubmitBtn />
+        <SubmitBtn className="form-submit-btn" />
       </form>
     </div>
   );

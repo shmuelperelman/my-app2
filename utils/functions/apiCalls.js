@@ -148,7 +148,7 @@ export async function updateUserProfile(userId, token, data) {
 export async function getAllUsers(token, userId) {
   try {
     console.log('Fetching users with userId:', userId);
-    const response = await fetch(`${SERVER_URL}/users/${userId}/all-except`, { // עדכון URL
+    const response = await fetch(`${SERVER_URL}/users/${userId}/all-except`, { 
       cache: 'no-cache',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -209,56 +209,6 @@ export async function getUserFriends( userId,token) {
   }
 }
 
-export async function addGroupToUser(userId, groupId, token) {
-  try {
-    const response = await axios.put(
-      `${SERVER_URL}/users/${userId}/groups`,
-      { groupId },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
-
-export async function removeGroupFromUser(userId, groupId, token) {
-  try {
-    const response = await axios.delete(
-      `${SERVER_URL}/users/${userId}/groups/${groupId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw new Error(error);
-  }
-}
-
-export async function getUsersInGroup(groupId, token) {
-  try {
-    const response = await fetch(
-      `${SERVER_URL}/users/groups/${groupId}/users`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-}
-
 
 export async function sendMessageToServer(message) {
   try {
@@ -281,20 +231,6 @@ export async function getGroupsUserIsMemberOf(userId, token) {
     return response.data;
   } catch (error) {
     console.error('Error fetching member groups:', error);
-    throw error;
-  }
-}
-
-export async function createGroup(groupData, token) {
-  try {
-    const response = await axios.post(`${SERVER_URL}/groups`, groupData, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    console.error('Error creating group:', error);
     throw error;
   }
 }
@@ -406,7 +342,7 @@ export async function getChatMessages(chatId) {
 // קריאה להוספת מוצר חדש
 export async function createNewProduct(body, token) {
   try {
-    const response = await axios.post(`${SERVER_URL}/market/products`, body, {
+    const response = await axios.post(`${SERVER_URL}/market`, body, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -419,19 +355,21 @@ export async function createNewProduct(body, token) {
 }
 
 
-export async function getAllProducts(token) {
+
+export const getAllProducts = async (token) => {
   try {
-    const response = await axios.get(`${SERVER_URL}/market/products`, {
+    const response = await axios.get('http://localhost:3004/market', {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log('API response:', response.data);
     return response.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
     throw error;
   }
-}
+};
 
 
 export const getProductById = async (id, token) => {
@@ -439,7 +377,7 @@ export const getProductById = async (id, token) => {
     console.log(`Fetching product with ID: ${id}`);
     console.log(`Using token: ${token}`);
 
-    const response = await axios.get(`${SERVER_URL }/market/products/${id}`, {
+    const response = await axios.get(`${SERVER_URL }/market/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -468,5 +406,131 @@ export async function deleteProduct(productId, token) {
   } catch (error) {
     console.error('Error deleting product:', error);
     throw new Error(error);
+  }
+}
+
+// קבלת כל הקבוצות
+export async function getAllGroups(token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/groups`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching groups:', error);
+    throw error;
+  }
+}
+
+// קבלת קבוצה לפי מזהה
+export async function getGroupById(groupId, token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/groups/${groupId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching group:', error);
+    throw error;
+  }
+}
+
+// יצירת קבוצה חדשה
+export async function createGroup(groupData, token) {
+  try {
+    console.log('Sending groupData:', groupData);
+    const response = await axios.post(`${SERVER_URL}/groups`, groupData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('Group creation response:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating group:', error);
+    throw error;
+  }
+}
+
+// עדכון קבוצה לפי מזהה
+export async function updateGroup(groupId, groupData, token) {
+  try {
+    const response = await axios.put(`${SERVER_URL}/groups/${groupId}`, groupData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating group:', error);
+    throw error;
+  }
+}
+
+// מחיקת קבוצה לפי מזהה
+export async function deleteGroup(groupId, token) {
+  try {
+    const response = await axios.delete(`${SERVER_URL}/groups/${groupId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error deleting group:', error);
+    throw error;
+  }
+}
+
+// הוספת חבר לקבוצה
+export async function addMemberToGroup(groupId, userId, token) {
+  try {
+    const response = await axios.put(`${SERVER_URL}/groups/${groupId}/addMember`, { userId }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error adding member to group:', error);
+    throw error;
+  }
+}
+
+// הסרת חבר מקבוצה
+export async function removeMemberFromGroup(groupId, userId, token) {
+  try {
+    const response = await axios.put(`${SERVER_URL}/groups/${groupId}/removeMember`, { userId }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error removing member from group:', error);
+    throw error;
+  }
+}
+
+// קבלת שמות כל הקבוצות
+export async function getGroupNames(token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/groups/names`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching group names:', error);
+    throw error;
   }
 }
