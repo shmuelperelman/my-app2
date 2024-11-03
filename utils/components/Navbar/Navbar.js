@@ -57,7 +57,7 @@ const Navbar = () => {
         </div>
         <div className="navbar-center">
           <div className="navbar-icons">
-            <Link href="/app" passHref>
+            <Link href="/" passHref>
               <button
                 className={`navbar-icon-button ${activeButton === 'home' ? 'active' : ''}`}
                 onClick={() => handleButtonClick('home')}

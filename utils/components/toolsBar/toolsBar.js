@@ -1,14 +1,9 @@
 import React from "react";
 import { TextField, Select, MenuItem } from "@mui/material";
-
-const ToolsBar = ({ sortBy, setSortBy, setSearch }) => {
+import "./toolsBar.css"
+const ToolsBar = ({ sortBy, setSortBy }) => {
   return (
     <div className="tools-bar">
-      <TextField
-        label="Search"
-        variant="outlined"
-        onChange={(e) => setSearch(e.target.value)}
-      />
       <Select
         value={sortBy}
         onChange={(e) => setSortBy(e.target.value)}

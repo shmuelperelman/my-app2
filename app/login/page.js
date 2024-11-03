@@ -1,9 +1,14 @@
 'use client';
+import { useState } from 'react';
 import { login } from '@/utils/functions/apiCalls';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import "./Login.css"
+import "./Login.css";
+import ForgotPassword from '@/utils/components/ForgotPassword/ForgotPassword';
+import Link from 'next/link';
+
 export default function LoginPage() {
+  const [showForgotPassword, setShowForgotPassword] = useState(false); 
   const router = useRouter();
 
   async function handleSubmit(event) {
@@ -19,12 +24,30 @@ export default function LoginPage() {
 
   return (
     <div className="login-container">
-      <form className="login-form" onSubmit={handleSubmit}>
-        <h1>Login</h1>
-        <input name="username" type="text" placeholder="Username" required />
-        <input name="password" type="password" placeholder="Password" required />
-        <button type="submit" className="submit-btn">Login</button>
-      </form>
+      {showForgotPassword ? (
+        <ForgotPassword /> 
+      ) : (
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h1>Login</h1>
+          <input name="username" type="text" placeholder="Username" required />
+          <input name="password" type="password" placeholder="Password" required />
+          <button type="submit" className="submit-btn">Login</button>
+          <div className="login-links">
+            <Link href="/registration">
+              Register
+            </Link>
+            <a
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                setShowForgotPassword(true); 
+              }}
+            >
+              Forgot Password?
+            </a>
+          </div>
+        </form>
+      )}
     </div>
   );
 }

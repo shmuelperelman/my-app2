@@ -1,15 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { getCookie } from 'cookies-next';
-
 import './GroupPage.css';
 import { getGroupsUserIsMemberOf } from '@/utils/functions/apiCalls';
 import GroupMenu from '../GroupMenu/GroupMenu';
 import GroupPopup from '../GroupPopup/GroupPopup';
+import GroupDetails from '../GroupDetails/GroupDetails';
 
 const GroupPage = () => {
   const [groups, setGroups] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
@@ -44,8 +45,24 @@ const GroupPage = () => {
 
   return (
     <div className="group-page">
-      <GroupMenu groups={groups} onOpenPopup={() => setIsPopupOpen(true)} />
-      {isPopupOpen && <GroupPopup onCreate={handleCreateGroup} onClose={() => setIsPopupOpen(false)} />}
+      {!selectedGroupId ? (
+        <GroupMenu
+          groups={groups}
+          onOpenPopup={() => setIsPopupOpen(true)}
+          onSelectGroup={setSelectedGroupId}
+        />
+      ) : (
+        <GroupDetails
+          groupId={selectedGroupId}
+          onClose={() => setSelectedGroupId(null)}
+        />
+      )}
+      {isPopupOpen && (
+        <GroupPopup
+          onCreate={handleCreateGroup}
+          onClose={() => setIsPopupOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -23,6 +23,36 @@ export async function register(body) {
   }
 }
 
+export async function requestPasswordReset(email) {
+  try {
+    const response = await axios.post(`${SERVER_URL}/users/forgot-password`, { email });
+    return response.data; // מחזיר את הודעת ההצלחה או שגיאה
+  } catch (error) {
+    console.error('Error requesting password reset:', error);
+    throw error;
+  }
+}
+
+export async function verifyResetToken(token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/users/reset-password/${token}`);
+    return response.data; // מחזיר את הודעת האימות
+  } catch (error) {
+    console.error('Error verifying reset token:', error);
+    throw error;
+  }
+}
+
+export async function resetPassword(token, newPassword) {
+  try {
+    const response = await axios.post(`${SERVER_URL}/users/reset-password/${token}`, { password: newPassword });
+    return response.data; // מחזיר את הודעת ההצלחה
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    throw error;
+  }
+}
+
 export async function getAllUserPosts( userId,token) {
   try {
     console.log('Sending request with userId:', userId); // לוג לבדיקה
@@ -372,24 +402,58 @@ export const getAllProducts = async (token) => {
 };
 
 
+
 export const getProductById = async (id, token) => {
   try {
+    // בדיקה אם ה-ID וה-Token לא ריקים
+    if (!id) {
+      throw new Error('Product ID is missing.');
+    }
+    if (!token) {
+      throw new Error('Authentication token is missing.');
+    }
+
     console.log(`Fetching product with ID: ${id}`);
     console.log(`Using token: ${token}`);
 
-    const response = await axios.get(`${SERVER_URL }/market/${id}`, {
+    const response = await axios.get(`${SERVER_URL}/market/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
+    // בדיקה אם התגובה תקינה ויש בה נתונים
+    if (!response || !response.data) {
+      throw new Error('Invalid response from server.');
+    }
+
     return response.data;
   } catch (error) {
-    console.error('Detailed error in getProductById:', error);
-    console.error('Response error data:', error.response?.data);
-    console.error('Response error status:', error.response?.status);
-    console.error('Response error headers:', error.response?.headers);
-    throw error;
+    // טיפול בשגיאות בצורה מקיפה
+    console.error('Error in getProductById:', error.message);
+
+    if (error.response) {
+      // שגיאה מהשרת
+      console.error('Response error data:', error.response.data);
+      console.error('Response error status:', error.response.status);
+      console.error('Response error headers:', error.response.headers);
+
+      if (error.response.status === 404) {
+        throw new Error('Product not found.');
+      } else if (error.response.status === 401) {
+        throw new Error('Unauthorized access. Please check your token.');
+      } else {
+        throw new Error('An error occurred while fetching the product.');
+      }
+    } else if (error.request) {
+      // לא התקבלה תשובה מהשרת
+      console.error('No response received:', error.request);
+      throw new Error('No response from server. Please check your network.');
+    } else {
+      // שגיאה בהגדרת הבקשה
+      console.error('Error setting up the request:', error.message);
+      throw new Error('Error setting up the request.');
+    }
   }
 };
 
@@ -531,6 +595,20 @@ export async function getGroupNames(token) {
     return response.data;
   } catch (error) {
     console.error('Error fetching group names:', error);
+    throw error;
+  }
+}
+
+export async function getGroupPosts(groupId, token) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/groups/${groupId}/posts`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching group posts:', error);
     throw error;
   }
 }

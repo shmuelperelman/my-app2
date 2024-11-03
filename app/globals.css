@@ -74,3 +74,25 @@
       @apply bg-background text-foreground;
     }
   }
+
+  @font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 900;
+    font-display: swap;
+    src: url('/fonts/fa-solid-900.woff2') format('woff2');
+  }
+  
+  body {
+    font-family: 'Your Main Font', sans-serif;
+  }
+  
+  .sidebar li svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.125em;
+  }
+  
+  .page-container {
+    min-height: 100vh;
+  }
