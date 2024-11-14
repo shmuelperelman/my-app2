@@ -19,7 +19,7 @@ export default function LoginPage() {
     setCookie('token', token);
     setCookie('user_id', user_id);
     setCookie('profilePictureURL', profilePictureURL);
-    router.push('/');
+    router.push('profile/');
   }
 
   return (

@@ -19,10 +19,16 @@ export default async function MarketPage() {
     console.log("Products fetched:", products);
 
     return (
-      <div>
-        <ProductsGrid products={products} />
-      </div>
+      <>
+        <div>
+          <ProductsGrid products={products} />
+        </div>
+        <div>
+          <AddProduct /> {/* הצגת כפתור הוספת מוצר */}
+        </div>
+      </>
     );
+
   } catch (error) {
     console.error("Error in MarketPage:", error);
     return (

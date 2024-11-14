@@ -12,10 +12,20 @@ export default function RootLayout({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = getCookie('token');
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    // Function to check authentication status
+    const checkAuth = () => {
+      const token = getCookie('token');
+      setIsAuthenticated(!!token);
+    };
+
+    // Check initial auth status
+    checkAuth();
+
+    // Set up interval to check auth status
+    const interval = setInterval(checkAuth, 100);
+
+    // Clean up interval on component unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (

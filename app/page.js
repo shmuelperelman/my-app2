@@ -1,15 +1,13 @@
 
 
-import ChatBox from '@/utils/components/ChatBox/ChatBox';
 import './Home.css';
-import PostForm from '@/utils/components/post/post';
+import LoginPage from './login/page';
 
 
 export default function Home() {
   return (
   <div>
-
-<ChatBox/>
+<LoginPage/>
 </div>
  
   );

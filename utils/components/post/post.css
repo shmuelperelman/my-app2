@@ -1,0 +1,186 @@
+.post-form-container {
+    margin: 20px;
+    background-color: white;
+    display: flex;
+    justify-content: center; 
+  }
+  .create-post-button {
+    background: linear-gradient(45deg, #2196F3, #21CBF3);
+    border-radius: 25px;
+    padding: 10px 24px;
+    color: white;
+    font-weight: 500;
+    text-transform: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+  }
+  .create-post-button:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #1976D2, #00BCD4);
+  }
+  .post-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5); 
+  }
+  .modal-content {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: modalFadeIn 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+  @keyframes modalFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .post-form {
+    padding: 24px;
+    background-color: white;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+  }
+  .modal-header h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+  }
+  .close-button {
+    background: #f0f0f0;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s ease;
+  }
+  .close-button:hover {
+    background-color: #e0e0e0;
+  }
+  .form-content {
+    margin-bottom: 20px;
+    background-color: white;
+  }
+  .content-input {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    border: 1px solid #e0e0e0;
+  }
+  .image-previews {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+    background-color: white;
+  }
+  .preview-container {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #f8f9fa;
+  }
+  .preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .remove-image {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .remove-image:hover {
+    background: rgba(0, 0, 0, 0.9);
+  }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+    background-color: white;
+  }
+  .add-image-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    border-radius: 20px;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .add-image-button:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+  }
+  .submit-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(45deg, #2196F3, #21CBF3);
+    border: none;
+    padding: 10px 24px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+  .submit-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  .loading-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 24px;
+    background-color: white;
+  }
+  @media (max-width: 600px) {
+    .modal-content {
+      width: 95%;
+      margin: 10px;
+    }
+    .form-actions {
+      flex-direction: column;
+      gap: 16px;
+    }
+    .add-image-button,
+    .submit-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }

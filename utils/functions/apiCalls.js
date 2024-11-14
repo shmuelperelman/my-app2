@@ -26,7 +26,7 @@ export async function register(body) {
 export async function requestPasswordReset(email) {
   try {
     const response = await axios.post(`${SERVER_URL}/users/forgot-password`, { email });
-    return response.data; // מחזיר את הודעת ההצלחה או שגיאה
+    return response.data; 
   } catch (error) {
     console.error('Error requesting password reset:', error);
     throw error;
@@ -36,7 +36,7 @@ export async function requestPasswordReset(email) {
 export async function verifyResetToken(token) {
   try {
     const response = await axios.get(`${SERVER_URL}/users/reset-password/${token}`);
-    return response.data; // מחזיר את הודעת האימות
+    return response.data; 
   } catch (error) {
     console.error('Error verifying reset token:', error);
     throw error;
@@ -46,7 +46,7 @@ export async function verifyResetToken(token) {
 export async function resetPassword(token, newPassword) {
   try {
     const response = await axios.post(`${SERVER_URL}/users/reset-password/${token}`, { password: newPassword });
-    return response.data; // מחזיר את הודעת ההצלחה
+    return response.data; 
   } catch (error) {
     console.error('Error resetting password:', error);
     throw error;
@@ -55,7 +55,7 @@ export async function resetPassword(token, newPassword) {
 
 export async function getAllUserPosts( userId,token) {
   try {
-    console.log('Sending request with userId:', userId); // לוג לבדיקה
+    console.log('Sending request with userId:', userId); 
 
     const response = await axios.get(`${SERVER_URL}/posts/all/${userId}`, {
       headers: {
@@ -63,7 +63,7 @@ export async function getAllUserPosts( userId,token) {
       },
     });
 
-    console.log('Fetched posts:', response.data); // לוג לבדיקה
+    console.log('Fetched posts:', response.data); 
     return response.data;
   } catch (error) {
     console.error('Error in getAllUserPosts:', error);

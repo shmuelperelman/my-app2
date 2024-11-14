@@ -51,7 +51,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-logo">ברוך הגבר</div>
+        <div className="navbar-logo">Postify </div>
         <div className="navbar-search">
         <SearchBar onSelectUser={handleSelectUser} />
         </div>

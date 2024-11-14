@@ -29,16 +29,20 @@ const ProfilePosts = ({ userId }) => {
     }
   };
 
-  const handleLike = (postId) => {
+  const handleLike = (postId, userId) => {
     setPosts(posts.map(post => {
       if (post._id === postId) {
+      
+        const alreadyLiked = post.likedBy && post.likedBy.includes(userId);
+        if (alreadyLiked) return post; 
         const updatedLikes = post.likes ? post.likes + 1 : 1;
-        return { ...post, likes: updatedLikes };
+        const updatedLikedBy = post.likedBy ? [...post.likedBy, userId] : [userId];
+        return { ...post, likes: updatedLikes, likedBy: updatedLikedBy };
       }
       return post;
     }));
   };
-
+  
   const handleCommentChange = (e, postId) => {
     setComments({ ...comments, [postId]: e.target.value });
   };
@@ -103,7 +107,8 @@ const ProfilePosts = ({ userId }) => {
     try {
       const token = getCookie('token');
       const updatedPost = await updatePost(postId, { removeImage: imageUrl }, token);
-      setPosts(posts.map(post => post._id === postId ? updatedPost : post));
+  
+      setPosts(prevPosts => prevPosts.map(post => post._id === postId ? updatedPost : post));
     } catch (error) {
       console.error('Error deleting image:', error);
     }
