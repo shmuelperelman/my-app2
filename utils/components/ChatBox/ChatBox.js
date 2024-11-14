@@ -145,7 +145,7 @@ const ChatBox = ({ recipientId }) => {
                 : 'recipient-message'
             }`}
           >
-            <img
+            {/* <img
               src={
                 message.sender === getCookie('user_id')
                   ? 'path_to_user_profile_picture'
@@ -153,7 +153,7 @@ const ChatBox = ({ recipientId }) => {
               }
               alt={message.sender}
               className="message-pic"
-            />
+            /> */}
             <div className="message-bubble">
               {message.type === 'text' ? (
                 <span className="message-content">{message.content}</span>

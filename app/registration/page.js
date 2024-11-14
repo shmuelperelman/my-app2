@@ -13,7 +13,7 @@ export default function RegistrationModal() {
   const [passwordError, setPasswordError] = useState('');
   const passElement = useRef(null);
   const [profilePicture, setProfilePicture] = useState(null);
-  const [coverPicture, setCoverPicture] = useState(null); // הוספת סטייט לתמונת cover
+  const [coverPicture, setCoverPicture] = useState(null);
 
   async function handleSubmit(e) {
     try {

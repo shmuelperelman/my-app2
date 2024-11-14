@@ -2,7 +2,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { storage } from '../../services/firebase';
-import './ChatBox.css';
+import './ChetMarket.css';
 import { getCookie } from 'cookies-next';
 import { getUserById } from '@/utils/functions/apiCalls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

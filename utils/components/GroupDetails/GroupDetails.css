@@ -1,0 +1,133 @@
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* מיקום הפוסטים בצד ימין */
+  max-width: 100%;
+  margin: 0;
+  padding: 16px;
+}
+
+.post {
+  width: 100%; /* מגדיר את הפוסט לתפוס את כל רוחב הקונטיינר */
+  max-width: 800px; /* מגביל את רוחב הפוסט ל-800px */
+  background: #f1efef;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-left: auto; /* מוודא שהפוסט ממוקם בצד ימין */
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.post-profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.post-username {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.post-date {
+  font-size: 12px;
+  color: #555;
+}
+
+.post-content {
+  margin-top: 20px;
+  font-size: 22px;
+}
+
+.post-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.post-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.like-button, .comment-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.like-button:hover, .comment-button:hover {
+  background: #f0f0f0;
+}
+
+.comments-section {
+  margin-top: 16px;
+}
+
+.comment {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.comment-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.comment-content {
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 8px;
+  flex-grow: 1;
+}
+
+.add-comment {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.add-comment input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-right: 8px;
+}
+
+.add-comment button {
+  padding: 8px 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.add-comment button:hover {
+  background-color: #0056b3;
+}

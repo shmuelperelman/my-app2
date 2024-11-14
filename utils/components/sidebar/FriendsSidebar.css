@@ -1,56 +1,48 @@
-.profile-layout {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-}
-
 .sidebar-container {
-  width: 300px;
-  border-right: 1px solid #ccc;
-  overflow-y: auto;
-  background-color: #f7f7f7; /* הוספת צבע רקע */
+  width: 20%;
+  background-color: #c6c5cc;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 18px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #130725;
 }
 
 .section {
-  padding: 10px;
+  margin-bottom: 20px;
 }
 
 .section-title {
-  font-size: 1.5rem;
+  font-size: 21px;
   margin-bottom: 10px;
+  color: #0f1010;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+  font-weight: bold;
 }
 
 .friend-btn {
   display: flex;
   align-items: center;
-  padding: 10px;
   width: 100%;
+  background: hwb(210 64% 34% / 0.63);
   border: none;
-  background: none;
-  text-align: left;
+  font-size: 22px;
+  margin-bottom: 7px;
+  color: #050607;
   cursor: pointer;
-  border-bottom: 1px solid #ddd; /* הוספת קו תחתון */
+  padding: 3px;
+  border-radius: 5px;
+  transition: background-color 0.5s;
 }
 
-.friend-btn.active {
-  background-color: #e0e0e0;
+.friend-btn:hover {
+  background-color: #7b93b8;
 }
 
 .friend-pic {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   margin-right: 10px;
-  width: 40px; /* קביעת רוחב התמונה */
-  height: 40px; /* קביעת גובה התמונה */
-  object-fit: cover; /* חיתוך התמונה כדי שתתאים לגודל */
-}
-
-.friend-pic,
-.friend-btn span {
-  vertical-align: middle;
-}
-
-.chat-container {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
 }

@@ -1,23 +1,28 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { getCookie } from 'cookies-next';
-import { getGroupsUserIsMemberOf, createGroup } from '@/utils/functions/apiCalls';
-import GroupPopup from '../GroupPopup/GroupPopup';
-import GroupMenu from '../GroupMenu/GroupMenu';
 import './GroupPage.css';
-
+import { getGroupsUserIsMemberOf } from '@/utils/functions/apiCalls';
+import GroupMenu from '../GroupMenu/GroupMenu';
+import GroupPopup from '../GroupPopup/GroupPopup';
+import GroupDetails from '../GroupDetails/GroupDetails';
 
 const GroupPage = () => {
   const [groups, setGroups] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
         const userId = getCookie('user_id');
         const token = getCookie('token');
-        const userGroups = await getGroupsUserIsMemberOf(userId, token);
-        setGroups(userGroups);
+        if (userId && token) {
+          const userGroups = await getGroupsUserIsMemberOf(userId, token);
+          setGroups(userGroups);
+        } else {
+          console.error('User ID or token is missing');
+        }
       } catch (error) {
         console.error('Error fetching groups:', error);
       }
@@ -28,11 +33,9 @@ const GroupPage = () => {
 
   const handleCreateGroup = async (groupName, members) => {
     try {
+      setIsPopupOpen(false);
       const userId = getCookie('user_id');
       const token = getCookie('token');
-      await createGroup({ name: groupName, members, admin_id: userId }, token);
-      setIsPopupOpen(false);
-      // Reload groups after creation
       const userGroups = await getGroupsUserIsMemberOf(userId, token);
       setGroups(userGroups);
     } catch (error) {
@@ -42,11 +45,24 @@ const GroupPage = () => {
 
   return (
     <div className="group-page">
-      <GroupMenu groups={groups} />
-      <button className="fab" onClick={() => setIsPopupOpen(true)}>
-        Create Group
-      </button>
-      {isPopupOpen && <GroupPopup onCreate={handleCreateGroup} onClose={() => setIsPopupOpen(false)} />}
+      {!selectedGroupId ? (
+        <GroupMenu
+          groups={groups}
+          onOpenPopup={() => setIsPopupOpen(true)}
+          onSelectGroup={setSelectedGroupId}
+        />
+      ) : (
+        <GroupDetails
+          groupId={selectedGroupId}
+          onClose={() => setSelectedGroupId(null)}
+        />
+      )}
+      {isPopupOpen && (
+        <GroupPopup
+          onCreate={handleCreateGroup}
+          onClose={() => setIsPopupOpen(false)}
+        />
+      )}
     </div>
   );
 };

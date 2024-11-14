@@ -9,7 +9,7 @@ const Logout = () => {
 
 
   useEffect(() => {
-    // מחיקת העוגיות
+ 
     deleteCookie('token');
     deleteCookie('user_id');
     deleteCookie('profilePictureURL');
